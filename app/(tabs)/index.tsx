@@ -1,70 +1,191 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import React from 'react';
+import { StyleSheet, View, Text, ScrollView, Image, TextInput } from 'react-native';
+import { Card, Icon, Avatar, Button } from 'react-native-elements';
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.header}>
+        <Avatar
+          size="medium"
+          rounded
+          source={{
+            uri: 'https://via.placeholder.com/150', // Replace with your profile image URL
+          }}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <View style={styles.headerTextContainer}>
+          <Text style={styles.headerTitle}>Hello Ramesh</Text>
+          <Text style={styles.headerSubtitle}>Your available balance</Text>
+        </View>
+        <Icon name="bell" type="font-awesome" color="#000" />
+      </View>
+
+      <View style={styles.cardsContainer}>
+        <Card containerStyle={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardTitle}>HDFC BANK</Text>
+            <Text style={styles.cardBalance}>Total Balance 20,658,00</Text>
+          </View>
+          <Text style={styles.cardNumber}>7856 1711 8989 1098</Text>
+          <Text style={styles.cardExpiry}>Exp 12/28</Text>
+        </Card>
+        <Card containerStyle={[styles.card, styles.secondaryCard]}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardTitle}>Central Bank</Text>
+            <Text style={styles.cardBalance}>Total Balance 57,188,00</Text>
+          </View>
+          <Text style={styles.cardNumber}>9090 1234 5678 9090</Text>
+          <Text style={styles.cardExpiry}>Exp 08/23</Text>
+        </Card>
+      </View>
+
+      <TextInput style={styles.searchInput} placeholder="Search here" />
+
+      <View style={styles.transactionHistory}>
+        <Text style={styles.sectionTitle}>Transaction History</Text>
+        <View style={styles.transaction}>
+          <Avatar size="small" rounded source={{ uri: 'https://via.placeholder.com/50' }} />
+          <View style={styles.transactionTextContainer}>
+            <Text style={styles.transactionName}>Kristen Thomas</Text>
+            <Text style={styles.transactionDetail}>Pending Payment</Text>
+          </View>
+          <Text style={styles.transactionAmount}>RS 1500</Text>
+        </View>
+        <View style={styles.transaction}>
+          <Icon name="video" type="font-awesome" color="#000" />
+          <View style={styles.transactionTextContainer}>
+            <Text style={styles.transactionName}>Prime Video</Text>
+            <Text style={styles.transactionDetail}>Subscription fee</Text>
+          </View>
+          <Text style={styles.transactionAmount}>RS 1870</Text>
+        </View>
+        <View style={styles.transaction}>
+          <Icon name="netflix" type="font-awesome" color="#000" />
+          <View style={styles.transactionTextContainer}>
+            <Text style={styles.transactionName}>Netflix</Text>
+            <Text style={styles.transactionDetail}>Subscription fee</Text>
+          </View>
+          <Text style={styles.transactionAmount}>RS 1880</Text>
+        </View>
+      </View>
+
+      <View style={styles.navbar}>
+        <Icon name="home" size={30} />
+        <Icon name="credit-card" size={30} />
+        <Icon name="history" size={30} />
+        <Icon name="cog" size={30} />
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flexGrow: 1,
+    backgroundColor: '#f5f5f5',
+    padding: 20,
+  },
+  header: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    justifyContent: 'space-between',
+    marginBottom: 20,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  headerTextContainer: {
+    flex: 1,
+    marginLeft: 10,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: '#666',
+  },
+  cardsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  card: {
+    flex: 1,
+    borderRadius: 10,
+    padding: 15,
+    backgroundColor: '#1e3a8a',
+    marginRight: 10,
+  },
+  secondaryCard: {
+    backgroundColor: '#333',
+    marginRight: 0,
+  },
+  cardHeader: {
+    marginBottom: 10,
+  },
+  cardTitle: {
+    fontSize: 16,
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  cardBalance: {
+    fontSize: 14,
+    color: '#fff',
+  },
+  cardNumber: {
+    fontSize: 16,
+    color: '#fff',
+    marginBottom: 10,
+  },
+  cardExpiry: {
+    fontSize: 14,
+    color: '#fff',
+  },
+  searchInput: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginBottom: 20,
+  },
+  transactionHistory: {
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  transaction: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+  },
+  transactionTextContainer: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  transactionName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  transactionDetail: {
+    fontSize: 14,
+    color: '#666',
+  },
+  transactionAmount: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  navbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
+    borderTopColor: '#ccc',
+    borderTopWidth: 1,
   },
 });
+
